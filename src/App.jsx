@@ -777,7 +777,12 @@ export default function Component() {
         )}
 
         {/* Enhanced Visualization */}
-        <div className="border-2 border-green-400 rounded-lg p-6 mb-8 h-96 bg-black/50 backdrop-blur-sm shadow-2xl shadow-green-400/20 relative overflow-hidden">
+        <div
+          className="border-2 border-green-400 rounded-lg p-6 mb-8 
+  h-[35rem] sm:h-[28rem] md:h-96 
+  bg-black/50 backdrop-blur-sm shadow-2xl shadow-green-400/20 
+  relative overflow-hidden"
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 via-transparent to-cyan-900/10 animate-pulse" />
 
           {/* Legend (Responsive & Wrapping) */}
@@ -816,7 +821,7 @@ export default function Component() {
                   className="transition-all duration-200 ease-out transform hover:scale-105 rounded-t-sm relative flex flex-col items-center"
                   onMouseEnter={() => playHoverSound()}
                   style={{
-                    height: `max(${barHeightPercent}%, 10px)`, // 👈 ensures minimum height
+                    height: `max(${barHeightPercent}%, 10px)`,
                     width: `${barWidth}vw`,
                     backgroundColor: getBarColor(index),
                     boxShadow: getBarGlow(index),
