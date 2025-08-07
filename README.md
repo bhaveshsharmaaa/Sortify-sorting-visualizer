@@ -7,7 +7,7 @@ A vibrant and interactive sorting algorithm visualizer built with React and Vite
 ## Demo
 
 Live demo available at:  
-https://sortify-sorting-visualizer.vercel.app (or your actual deployed URL)
+https://sortify-sorting-visualizer.vercel.app
 
 ---
 
@@ -39,10 +39,6 @@ https://sortify-sorting-visualizer.vercel.app (or your actual deployed URL)
 ---
 
 ## Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v16 or higher recommended)
 
 ### Installation
 
