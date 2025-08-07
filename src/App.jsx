@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "./components/ui/Button";
 import { Slider } from "./components/ui/Slider";
-
 import {
   Play,
   Pause,
@@ -16,6 +15,25 @@ import {
   Code2,
   Binary,
 } from "lucide-react";
+
+// Import all sorting algorithms
+import { bubbleSort } from "./algorithms/bubble-sort.js";
+import { selectionSort } from "./algorithms/selection-sort.js";
+import { insertionSort } from "./algorithms/insertion-sort.js";
+import { quickSort } from "./algorithms/quick-sort.js";
+import { mergeSort } from "./algorithms/merge-sort.js";
+import { heapSort } from "./algorithms/heap-sort.js";
+import { shellSort } from "./algorithms/shell-sort.js";
+import { cocktailSort } from "./algorithms/cocktail-sort.js";
+import { gnomeSort } from "./algorithms/gnome-sort.js";
+import { countingSort } from "./algorithms/counting-sort.js";
+import { oddEvenSort } from "./algorithms/odd-even-sort.js";
+import { combSort } from "./algorithms/comb-sort.js";
+import { cycleSort } from "./algorithms/cycle-sort.js";
+import { radixSort } from "./algorithms/radix-sort.js";
+import { bucketSort } from "./algorithms/bucket-sort.js";
+import { pigeonholeSort } from "./algorithms/pigeonhole-sort.js";
+import { algorithms } from "./lib/utils.jsx";
 
 export default function Component() {
   const [array, setArray] = useState([]);
@@ -47,94 +65,6 @@ export default function Component() {
   const audioContextRef = useRef(null);
   const particleAnimationRef = useRef(null);
 
-  const algorithms = {
-    basic: [
-      { id: "bubble", name: "Bubble Sort", complexity: "O(n²)", space: "O(1)" },
-      {
-        id: "insertion",
-        name: "Insertion Sort",
-        complexity: "O(n²)",
-        space: "O(1)",
-      },
-      {
-        id: "selection",
-        name: "Selection Sort",
-        complexity: "O(n²)",
-        space: "O(1)",
-      },
-      { id: "gnome", name: "Gnome Sort", complexity: "O(n²)", space: "O(1)" },
-    ],
-    advanced: [
-      {
-        id: "merge",
-        name: "Merge Sort",
-        complexity: "O(n log n)",
-        space: "O(n)",
-      },
-      {
-        id: "quick",
-        name: "Quick Sort",
-        complexity: "O(n log n)",
-        space: "O(log n)",
-      },
-      {
-        id: "heap",
-        name: "Heap Sort",
-        complexity: "O(n log n)",
-        space: "O(1)",
-      },
-      {
-        id: "shell",
-        name: "Shell Sort",
-        complexity: "O(n^1.5)",
-        space: "O(1)",
-      },
-    ],
-    hybrid: [
-      {
-        id: "cocktail",
-        name: "Cocktail Shaker Sort",
-        complexity: "O(n²)",
-        space: "O(1)",
-      },
-      {
-        id: "oddeven",
-        name: "Odd-Even Sort",
-        complexity: "O(n²)",
-        space: "O(1)",
-      },
-      { id: "comb", name: "Comb Sort", complexity: "O(n²)", space: "O(1)" },
-      { id: "cycle", name: "Cycle Sort", complexity: "O(n²)", space: "O(1)" },
-    ],
-    noncomparison: [
-      {
-        id: "counting",
-        name: "Counting Sort",
-        complexity: "O(n+k)",
-        space: "O(k)",
-      },
-      {
-        id: "radix",
-        name: "Radix Sort",
-        complexity: "O(d×n)",
-        space: "O(n+k)",
-      },
-      {
-        id: "bucket",
-        name: "Bucket Sort",
-        complexity: "O(n+k)",
-        space: "O(n)",
-      },
-      {
-        id: "pigeonhole",
-        name: "Pigeonhole Sort",
-        complexity: "O(n+k)",
-        space: "O(k)",
-      },
-    ],
-  };
-
-  // Initialize particles for animated background
   const initParticles = useCallback(() => {
     const newParticles = [];
     const colors = [
@@ -161,7 +91,6 @@ export default function Component() {
     setParticles(newParticles);
   }, []);
 
-  // Animate particles
   const animateParticles = useCallback(() => {
     setParticles((prevParticles) =>
       prevParticles.map((particle) => {
@@ -205,7 +134,6 @@ export default function Component() {
     };
   }, [initParticles, animateParticles]);
 
-  // Initialize Audio Context
   const initAudioContext = useCallback(() => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext ||
@@ -214,7 +142,6 @@ export default function Component() {
     return audioContextRef.current;
   }, []);
 
-  // Sound generation functions
   const playBeep = useCallback(
     (frequency, duration = 50, volume = 0.1) => {
       try {
@@ -250,18 +177,16 @@ export default function Component() {
     [initAudioContext]
   );
 
-  // Different sound effects
   const playCompareSound = useCallback(
     () => playBeep(800, 30, 0.05),
     [playBeep]
   );
   const playSwapSound = useCallback(() => playBeep(400, 50, 0.08), [playBeep]);
   const playSortedSound = useCallback(() => {
-    // Play a chord for completion
-    setTimeout(() => playBeep(523, 200, 0.1), 0); // C
-    setTimeout(() => playBeep(659, 200, 0.1), 50); // E
-    setTimeout(() => playBeep(784, 200, 0.1), 100); // G
-    setTimeout(() => playBeep(1047, 300, 0.1), 150); // C
+    setTimeout(() => playBeep(523, 200, 0.1), 0);
+    setTimeout(() => playBeep(659, 200, 0.1), 50);
+    setTimeout(() => playBeep(784, 200, 0.1), 100);
+    setTimeout(() => playBeep(1047, 300, 0.1), 150);
   }, [playBeep]);
   const playHoverSound = useCallback(
     () => playBeep(1200, 20, 0.03),
@@ -269,7 +194,6 @@ export default function Component() {
   );
   const playClickSound = useCallback(() => playBeep(600, 40, 0.06), [playBeep]);
 
-  // Timer functions
   const startTimer = useCallback(() => {
     const now = Date.now();
     setStartTime(now);
@@ -298,7 +222,6 @@ export default function Component() {
     return `${seconds}.${milliseconds.toString().padStart(2, "0")}s`;
   }, []);
 
-  // Generate uniformly distributed array
   const generateArray = useCallback(() => {
     if (arraySize <= 0) return;
 
@@ -307,15 +230,12 @@ export default function Component() {
     const maxValue = 300;
     const step = (maxValue - minValue) / arraySize;
 
-    // Create uniformly distributed values
     for (let i = 0; i < arraySize; i++) {
       const baseValue = minValue + i * step;
-      // Add small random variation to make it look more natural
       const variation = (Math.random() - 0.5) * step * 0.3;
       newArray.push(Math.round(baseValue + variation));
     }
 
-    // Shuffle the array to randomize positions while keeping uniform distribution
     for (let i = newArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       const temp = newArray[i];
@@ -349,725 +269,48 @@ export default function Component() {
     generateArray();
   }, [generateArray]);
 
-  // Helper function to safely swap array elements
-  const swapElements = (arr, i, j) => {
-    if (i >= 0 && i < arr.length && j >= 0 && j < arr.length) {
-      const temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
-    }
-  };
-
-  // Helper function to create sorted indices array
-  const createSortedIndices = (count, startFrom = 0) => {
-    const indices = [];
-    for (let i = 0; i < count; i++) {
-      indices.push(startFrom + i);
-    }
-    return indices;
-  };
-
-  // Bubble Sort
-  const bubbleSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-
-    for (let i = 0; i < n - 1; i++) {
-      for (let j = 0; j < n - i - 1; j++) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [j, j + 1],
-          swapping: [],
-          sorted: createSortedIndices(i, n - i),
-        });
-
-        if (array[j] > array[j + 1]) {
-          swaps++;
-          steps.push({
-            array: [...array],
-            comparing: [],
-            swapping: [j, j + 1],
-            sorted: createSortedIndices(i, n - i),
-          });
-
-          swapElements(array, j, j + 1);
-        }
-      }
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n²)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Selection Sort
-  const selectionSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-
-    for (let i = 0; i < n - 1; i++) {
-      let minIdx = i;
-
-      for (let j = i + 1; j < n; j++) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [minIdx, j],
-          swapping: [],
-          sorted: createSortedIndices(i, 0),
-        });
-
-        if (array[j] < array[minIdx]) {
-          minIdx = j;
-        }
-      }
-
-      if (minIdx !== i) {
-        swaps++;
-        steps.push({
-          array: [...array],
-          comparing: [],
-          swapping: [i, minIdx],
-          sorted: createSortedIndices(i, 0),
-        });
-
-        swapElements(array, i, minIdx);
-      }
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n²)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Insertion Sort
-  const insertionSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-
-    for (let i = 1; i < n; i++) {
-      let key = array[i];
-      let j = i - 1;
-
-      while (j >= 0 && array[j] > key) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [j, j + 1],
-          swapping: [],
-          sorted: createSortedIndices(i, 0),
-        });
-
-        array[j + 1] = array[j];
-        j--;
-        swaps++;
-
-        steps.push({
-          array: [...array],
-          comparing: [],
-          swapping: j >= 0 ? [j + 1, j + 2] : [],
-          sorted: createSortedIndices(i, 0),
-        });
-      }
-      array[j + 1] = key;
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n²)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Quick Sort
-  const quickSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    let comparisons = 0,
-      swaps = 0;
-
-    const partition = (low, high) => {
-      const pivot = array[high];
-      let i = low - 1;
-
-      steps.push({
-        array: [...array],
-        comparing: [],
-        swapping: [],
-        sorted: [],
-        pivot: [high],
-      });
-
-      for (let j = low; j < high; j++) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [j, high],
-          swapping: [],
-          sorted: [],
-          pivot: [high],
-        });
-
-        if (array[j] < pivot) {
-          i++;
-          if (i !== j) {
-            swaps++;
-            steps.push({
-              array: [...array],
-              comparing: [],
-              swapping: [i, j],
-              sorted: [],
-              pivot: [high],
-            });
-            swapElements(array, i, j);
-          }
-        }
-      }
-
-      swaps++;
-      steps.push({
-        array: [...array],
-        comparing: [],
-        swapping: [i + 1, high],
-        sorted: [],
-        pivot: [high],
-      });
-      swapElements(array, i + 1, high);
-
-      return i + 1;
-    };
-
-    const quickSortHelper = (low, high) => {
-      if (low < high) {
-        const pi = partition(low, high);
-
-        steps.push({
-          array: [...array],
-          comparing: [],
-          swapping: [],
-          sorted: [pi],
-          pivot: [],
-        });
-
-        quickSortHelper(low, pi - 1);
-        quickSortHelper(pi + 1, high);
-      }
-    };
-
-    quickSortHelper(0, array.length - 1);
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(array.length, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n log n)",
-      spaceComplexity: "O(log n)",
-    });
-    return steps;
-  };
-
-  // Merge Sort
-  const mergeSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    let comparisons = 0,
-      swaps = 0;
-
-    const merge = (left, mid, right) => {
-      const leftArr = [];
-      const rightArr = [];
-
-      for (let i = left; i <= mid; i++) {
-        leftArr.push(array[i]);
-      }
-      for (let i = mid + 1; i <= right; i++) {
-        rightArr.push(array[i]);
-      }
-
-      let i = 0,
-        j = 0,
-        k = left;
-
-      while (i < leftArr.length && j < rightArr.length) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [left + i, mid + 1 + j],
-          swapping: [],
-          sorted: [],
-          auxiliary: createSortedIndices(right - left + 1, left),
-        });
-
-        if (leftArr[i] <= rightArr[j]) {
-          array[k] = leftArr[i];
-          i++;
-        } else {
-          array[k] = rightArr[j];
-          j++;
-        }
-        swaps++;
-        k++;
-      }
-
-      while (i < leftArr.length) {
-        array[k] = leftArr[i];
-        i++;
-        k++;
-        swaps++;
-      }
-
-      while (j < rightArr.length) {
-        array[k] = rightArr[j];
-        j++;
-        k++;
-        swaps++;
-      }
-
-      steps.push({
-        array: [...array],
-        comparing: [],
-        swapping: createSortedIndices(right - left + 1, left),
-        sorted: [],
-      });
-    };
-
-    const mergeSortHelper = (left, right) => {
-      if (left < right) {
-        const mid = Math.floor((left + right) / 2);
-        mergeSortHelper(left, mid);
-        mergeSortHelper(mid + 1, right);
-        merge(left, mid, right);
-      }
-    };
-
-    mergeSortHelper(0, array.length - 1);
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(array.length, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n log n)",
-      spaceComplexity: "O(n)",
-    });
-    return steps;
-  };
-
-  // Heap Sort
-  const heapSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-
-    const heapify = (n, i) => {
-      let largest = i;
-      const left = 2 * i + 1;
-      const right = 2 * i + 2;
-
-      if (left < n) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [largest, left],
-          swapping: [],
-          sorted: [],
-        });
-        if (array[left] > array[largest]) {
-          largest = left;
-        }
-      }
-
-      if (right < n) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [largest, right],
-          swapping: [],
-          sorted: [],
-        });
-        if (array[right] > array[largest]) {
-          largest = right;
-        }
-      }
-
-      if (largest !== i) {
-        swaps++;
-        steps.push({
-          array: [...array],
-          comparing: [],
-          swapping: [i, largest],
-          sorted: [],
-        });
-        swapElements(array, i, largest);
-        heapify(n, largest);
-      }
-    };
-
-    // Build heap
-    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-      heapify(n, i);
-    }
-
-    // Extract elements
-    for (let i = n - 1; i > 0; i--) {
-      swaps++;
-      steps.push({
-        array: [...array],
-        comparing: [],
-        swapping: [0, i],
-        sorted: createSortedIndices(n - i - 1, i + 1),
-      });
-      swapElements(array, 0, i);
-      heapify(i, 0);
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n log n)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Shell Sort
-  const shellSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-
-    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
-      for (let i = gap; i < n; i++) {
-        const temp = array[i];
-        let j = i;
-
-        while (j >= gap) {
-          comparisons++;
-          steps.push({
-            array: [...array],
-            comparing: [j - gap, j],
-            swapping: [],
-            sorted: [],
-          });
-
-          if (array[j - gap] > temp) {
-            swaps++;
-            steps.push({
-              array: [...array],
-              comparing: [],
-              swapping: [j - gap, j],
-              sorted: [],
-            });
-            array[j] = array[j - gap];
-            j -= gap;
-          } else {
-            break;
-          }
-        }
-        array[j] = temp;
-      }
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n^1.5)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Cocktail Shaker Sort
-  const cocktailSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-    let start = 0,
-      end = n - 1;
-    let swapped = true;
-
-    while (swapped) {
-      swapped = false;
-
-      for (let i = start; i < end; i++) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [i, i + 1],
-          swapping: [],
-          sorted: [],
-        });
-
-        if (array[i] > array[i + 1]) {
-          swaps++;
-          steps.push({
-            array: [...array],
-            comparing: [],
-            swapping: [i, i + 1],
-            sorted: [],
-          });
-          swapElements(array, i, i + 1);
-          swapped = true;
-        }
-      }
-
-      if (!swapped) break;
-      end--;
-      swapped = false;
-
-      for (let i = end - 1; i >= start; i--) {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [i, i + 1],
-          swapping: [],
-          sorted: [],
-        });
-
-        if (array[i] > array[i + 1]) {
-          swaps++;
-          steps.push({
-            array: [...array],
-            comparing: [],
-            swapping: [i, i + 1],
-            sorted: [],
-          });
-          swapElements(array, i, i + 1);
-          swapped = true;
-        }
-      }
-      start++;
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n²)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Gnome Sort
-  const gnomeSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    let comparisons = 0,
-      swaps = 0;
-    let index = 0;
-
-    while (index < n) {
-      if (index === 0) {
-        index++;
-      } else {
-        comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [index - 1, index],
-          swapping: [],
-          sorted: [],
-        });
-
-        if (array[index] >= array[index - 1]) {
-          index++;
-        } else {
-          swaps++;
-          steps.push({
-            array: [...array],
-            comparing: [],
-            swapping: [index - 1, index],
-            sorted: [],
-          });
-          swapElements(array, index, index - 1);
-          index--;
-        }
-      }
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons,
-      swaps,
-      timeComplexity: "O(n²)",
-      spaceComplexity: "O(1)",
-    });
-    return steps;
-  };
-
-  // Counting Sort
-  const countingSort = (arr) => {
-    const steps = [];
-    const array = [...arr];
-    const n = array.length;
-    const max = Math.max(...array);
-    const min = Math.min(...array);
-    const range = max - min + 1;
-    const count = new Array(range).fill(0);
-    const output = new Array(n);
-
-    // Count occurrences
-    for (let i = 0; i < n; i++) {
-      count[array[i] - min]++;
-      steps.push({
-        array: [...array],
-        comparing: [i],
-        swapping: [],
-        sorted: [],
-      });
-    }
-
-    // Build output array
-    for (let i = 1; i < range; i++) {
-      count[i] += count[i - 1];
-    }
-
-    for (let i = n - 1; i >= 0; i--) {
-      output[count[array[i] - min] - 1] = array[i];
-      count[array[i] - min]--;
-
-      // Copy current state of output to array for visualization
-      for (let j = 0; j < n; j++) {
-        if (output[j] !== undefined) {
-          array[j] = output[j];
-        }
-      }
-
-      steps.push({
-        array: [...array],
-        comparing: [],
-        swapping: [i],
-        sorted: [],
-      });
-    }
-
-    steps.push({
-      array: [...array],
-      comparing: [],
-      swapping: [],
-      sorted: createSortedIndices(n, 0),
-    });
-
-    setStats({
-      comparisons: n,
-      swaps: n,
-      timeComplexity: "O(n+k)",
-      spaceComplexity: "O(k)",
-    });
-    return steps;
-  };
+  useEffect(() => {
+    generateArray();
+  }, [generateArray]);
 
   const getSortingSteps = (algorithm, arr) => {
     if (!arr || arr.length === 0) return [];
 
     switch (algorithm) {
       case "bubble":
-        return bubbleSort(arr);
+        return bubbleSort(arr, setStats);
       case "selection":
-        return selectionSort(arr);
+        return selectionSort(arr, setStats);
       case "insertion":
-        return insertionSort(arr);
+        return insertionSort(arr, setStats);
       case "quick":
-        return quickSort(arr);
+        return quickSort(arr, setStats);
       case "merge":
-        return mergeSort(arr);
+        return mergeSort(arr, setStats);
       case "heap":
-        return heapSort(arr);
+        return heapSort(arr, setStats);
       case "shell":
-        return shellSort(arr);
+        return shellSort(arr, setStats);
       case "cocktail":
-        return cocktailSort(arr);
+        return cocktailSort(arr, setStats);
       case "gnome":
-        return gnomeSort(arr);
+        return gnomeSort(arr, setStats);
       case "counting":
-        return countingSort(arr);
+        return countingSort(arr, setStats);
+      case "oddeven":
+        return oddEvenSort(arr, setStats);
+      case "comb":
+        return combSort(arr, setStats);
+      case "cycle":
+        return cycleSort(arr, setStats);
+      case "radix":
+        return radixSort(arr, setStats);
+      case "bucket":
+        return bucketSort(arr, setStats);
+      case "pigeonhole":
+        return pigeonholeSort(arr, setStats);
       default:
-        return bubbleSort(arr);
+        return bubbleSort(arr, setStats);
     }
   };
 
@@ -1189,6 +432,7 @@ export default function Component() {
       .flat()
       .find((algo) => algo.id === selectedAlgorithm);
   };
+
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
@@ -1267,7 +511,6 @@ export default function Component() {
           {/* Animated Border Lines */}
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent opacity-60 animate-pulse" />
           <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-2xl h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40" />
-
           {/* Main Title with Enhanced Effects */}
           <div className="relative w-full px-2 sm:px-6 md:px-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 relative text-center sm:text-left">
@@ -1288,7 +531,6 @@ export default function Component() {
               <Binary className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-cyan-400 animate-bounce" />
             </div>
           </div>
-
           {/* Subtitle with Animation */}
           <div className="flex items-center justify-center gap-3 mb-4">
             <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
@@ -1300,7 +542,6 @@ export default function Component() {
               style={{ animationDelay: "0.5s" }}
             />
           </div>
-
           {/* Status Indicator */}
           <div className="flex items-center justify-center gap-2 mb-6">
             <div
@@ -1329,7 +570,6 @@ export default function Component() {
               style={{ animationDelay: "0.3s" }}
             />
           </div>
-
           {/* Decorative Elements */}
           <div className="absolute top-0 left-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-60" />
           <div className="absolute top-8 right-1/4 w-1 h-1 bg-yellow-400 rounded-full animate-pulse" />
@@ -1454,6 +694,7 @@ export default function Component() {
         </div>
 
         {/* Enhanced Statistics Panel */}
+        {/* Enhanced Statistics Panel */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-black/50 border border-green-400 rounded-lg p-4 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 to-transparent animate-pulse" />
@@ -1503,15 +744,14 @@ export default function Component() {
               </span>
             </div>
             <div className="text-2xl font-bold text-green-300 relative z-10">
-              {isRunning ? currentStep + 1 : sortingSteps.length}/
-              {sortingSteps.length}
+              {currentStep}/{Math.max(sortingSteps.length - 1, 0)}
             </div>
           </div>
         </div>
 
         {/* Progress Bar */}
         {isRunning && (
-          <div className="my-6  w-full max-w-full mx-auto">
+          <div className="my-6 w-full max-w-full mx-auto">
             <div className="flex justify-between text-sm mb-2">
               <span className="text-cyan-400 font-semibold">PROGRESS</span>
               <span className="text-green-400 font-bold">
@@ -1520,8 +760,8 @@ export default function Component() {
             </div>
             <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden border border-green-400/30">
               <div
-                className="h-full bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 transition-all duration-300 ease-out relative"
-                style={{ width: `${progress}%` }}
+                className="h-full bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 transition-all duration-100 ease-in-out relative will-change-[width]"
+                style={{ width: `${Math.round(progress)}%` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
               </div>
@@ -1570,7 +810,7 @@ export default function Component() {
             {array.map((value, index) => (
               <div
                 key={index}
-                className="transition-all duration-200 ease-out transform hover:scale-105 rounded-t-sm relative"
+                className="transition-all duration-200 ease-out transform hover:scale-105 rounded-t-sm relative flex flex-col items-center"
                 onMouseEnter={() => playHoverSound()}
                 style={{
                   height: `${(value / maxValue) * 100}%`,
@@ -1580,6 +820,18 @@ export default function Component() {
                   border: sorted.includes(index) ? "1px solid #00ff41" : "none",
                 }}
               >
+                {/* Element number on top of bar */}
+                <div
+                  className="absolute -top-6 text-xs font-bold text-green-300 bg-black/70 px-1 rounded border border-green-400/30"
+                  style={{
+                    fontSize: `${Math.max(10 - array.length / 20, 6)}px`,
+                    minWidth: "16px",
+                    textAlign: "center",
+                  }}
+                >
+                  {value}
+                </div>
+
                 {(comparing.includes(index) || swapping.includes(index)) && (
                   <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent animate-pulse" />
                 )}
@@ -1612,9 +864,9 @@ export default function Component() {
                     setArraySize(value[0]);
                   }
                 }}
-                min={10}
+                min={1}
                 max={100}
-                step={5}
+                step={1}
                 disabled={isRunning}
                 className="w-full"
               />
