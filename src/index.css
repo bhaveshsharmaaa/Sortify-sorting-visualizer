@@ -1,0 +1,111 @@
+@import "tailwindcss";
+/* Beautiful Neon Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 65, 0.1);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #00ff41, #00ffff);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #00ffff, #ff0080);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 25px rgba(255, 0, 128, 0.5),
+    inset 0 0 8px rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(45deg, #ff0080, #ffff00);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 1), 0 0 30px rgba(255, 255, 0, 0.7),
+    inset 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+  background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+  border: 1px solid rgba(0, 255, 65, 0.1);
+}
+
+/* Firefox Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff41 #1a1a1a;
+}
+
+/* Custom scrollbar for specific containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 255, 65, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00ff41, #00ffff);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00ffff, #ff6b35);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+}
+
+/* Animated scrollbar glow effect */
+@keyframes scrollbar-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  animation: scrollbar-glow 3s ease-in-out infinite;
+}
+
+/* Retro terminal-style scrollbar variant */
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: #000000;
+  border: 2px solid #00ff41;
+  border-radius: 0;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border: 1px solid #00ffff;
+  border-radius: 0;
+  box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.5),
+    0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00ffff;
+  box-shadow: inset 0 0 8px rgba(255, 0, 128, 0.5),
+    0 0 15px rgba(0, 255, 255, 1);
+}
