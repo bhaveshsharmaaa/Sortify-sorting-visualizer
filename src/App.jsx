@@ -37,7 +37,7 @@ import { algorithms } from "./lib/utils.jsx";
 
 export default function Component() {
   const [array, setArray] = useState([]);
-  const [arraySize, setArraySize] = useState(50);
+  const [arraySize, setArraySize] = useState(25);
   const [speed, setSpeed] = useState(50);
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -512,25 +512,32 @@ export default function Component() {
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent opacity-60 animate-pulse" />
           <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-2xl h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40" />
           {/* Main Title with Enhanced Effects */}
-          <div className="relative w-full px-2 sm:px-6 md:px-8">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 relative text-center sm:text-left">
-              <span className="bg-gradient-to-r flex justify-center items-center from-green-300 via-green-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-                {"> SORTING_VISUALIZER.EXE"}
+          <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-screen-xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center flex justify-center items-center sm:text-left relative">
+              <span className="bg-gradient-to-r from-green-300 via-green-400 to-cyan-400 bg-clip-text text-transparent animate-pulse flex justify-center sm:justify-start items-center">
+                {"> SORTING_VISUALIZER"}
               </span>
-              <div className="absolute -inset-1 bg-gradient-to-r from-green-400/20 to-cyan-400/20 blur-xl animate-pulse pointer-events-none z-[-1]" />
+
+              {/* Background glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-green-400/20 to-cyan-400/20 blur-xl animate-pulse pointer-events-none -z-10" />
             </h1>
 
-            {/* Decorative Icons - hidden on very small screens */}
-            <div className="hidden sm:block absolute -left-6 sm:-left-12 md:-left-16 top-1/2 transform -translate-y-1/2">
+            {/* Decorative Icons */}
+            <div className="hidden sm:block absolute top-1/2 left-2 sm:-left-8 md:-left-12 lg:-left-16 transform -translate-y-1/2">
               <Code2
-                className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-green-400 animate-spin"
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-green-400 animate-spin"
                 style={{ animationDuration: "8s" }}
+                aria-hidden="true"
               />
             </div>
-            <div className="hidden sm:block absolute -right-6 sm:-right-12 md:-right-16 top-1/2 transform -translate-y-1/2">
-              <Binary className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-cyan-400 animate-bounce" />
+            <div className="hidden sm:block absolute top-1/2 right-2 sm:-right-8 md:-right-12 lg:-right-16 transform -translate-y-1/2">
+              <Binary
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-cyan-400 animate-bounce"
+                aria-hidden="true"
+              />
             </div>
           </div>
+
           {/* Subtitle with Animation */}
           <div className="flex items-center justify-center gap-3 mb-4">
             <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
@@ -581,9 +588,10 @@ export default function Component() {
           {/* Background Animation */}
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 via-transparent to-cyan-900/10 animate-pulse" />
 
-          <div className="flex items-center gap-3 mb-6 relative z-10">
-            <Cpu className="w-6 h-6 text-green-400 animate-pulse" />
-            <h2 className="text-xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-6 relative z-10">
+            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 animate-pulse" />
+            <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               {"> ALGORITHM_SELECTION_MATRIX"}
             </h2>
           </div>
@@ -694,7 +702,6 @@ export default function Component() {
         </div>
 
         {/* Enhanced Statistics Panel */}
-        {/* Enhanced Statistics Panel */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-black/50 border border-green-400 rounded-lg p-4 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 to-transparent animate-pulse" />
@@ -773,70 +780,69 @@ export default function Component() {
         <div className="border-2 border-green-400 rounded-lg p-6 mb-8 h-96 bg-black/50 backdrop-blur-sm shadow-2xl shadow-green-400/20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 via-transparent to-cyan-900/10 animate-pulse" />
 
-          <div className="absolute top-4 left-4 text-sm opacity-75 relative z-10">
-            <div className="flex gap-4">
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 bg-green-400 rounded"
-                  style={{ boxShadow: "0 0 10px #00ff41" }}
-                />
-                <span>Normal/Sorted</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 bg-cyan-400 rounded"
-                  style={{ boxShadow: "0 0 10px #00ffff" }}
-                />
-                <span>Comparing</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 bg-pink-400 rounded"
-                  style={{ boxShadow: "0 0 10px #ff0080" }}
-                />
-                <span>Swapping</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 bg-orange-400 rounded"
-                  style={{ boxShadow: "0 0 10px #ff6b35" }}
-                />
-                <span>Pivot</span>
-              </div>
+          {/* Legend (Responsive & Wrapping) */}
+          <div className="absolute top-4 left-4 right-4 text-sm opacity-75 relative z-10">
+            <div className="flex flex-wrap gap-4">
+              {[
+                {
+                  color: "bg-green-400",
+                  label: "Normal/Sorted",
+                  glow: "#00ff41",
+                },
+                { color: "bg-cyan-400", label: "Comparing", glow: "#00ffff" },
+                { color: "bg-pink-400", label: "Swapping", glow: "#ff0080" },
+                { color: "bg-orange-400", label: "Pivot", glow: "#ff6b35" },
+              ].map(({ color, label, glow }, idx) => (
+                <div key={idx} className="flex items-center gap-2">
+                  <div
+                    className={`w-3 h-3 ${color} rounded`}
+                    style={{ boxShadow: `0 0 10px ${glow}` }}
+                  />
+                  <span className="whitespace-nowrap">{label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="h-full flex items-end justify-center gap-1 pt-12 relative z-10">
-            {array.map((value, index) => (
-              <div
-                key={index}
-                className="transition-all duration-200 ease-out transform hover:scale-105 rounded-t-sm relative flex flex-col items-center"
-                onMouseEnter={() => playHoverSound()}
-                style={{
-                  height: `${(value / maxValue) * 100}%`,
-                  width: `${Math.max(800 / array.length - 2, 3)}px`,
-                  backgroundColor: getBarColor(index),
-                  boxShadow: getBarGlow(index),
-                  border: sorted.includes(index) ? "1px solid #00ff41" : "none",
-                }}
-              >
-                {/* Element number on top of bar */}
+          <div className="h-full w-full flex items-end justify-center gap-[0.2vw] pt-12 px-[2vw] relative z-10">
+            {array.map((value, index) => {
+              const barHeightPercent = (value / maxValue) * 100;
+              const barWidth = Math.max(100 / array.length, 2); // responsive
+              const fontSize = `${Math.max(1, 10 - array.length / 20)}px`;
+
+              return (
                 <div
-                  className="absolute -top-6 text-xs font-bold text-green-300 bg-black/70 px-1 rounded border border-green-400/30"
+                  key={index}
+                  className="transition-all duration-200 ease-out transform hover:scale-105 rounded-t-sm relative flex flex-col items-center"
+                  onMouseEnter={() => playHoverSound()}
                   style={{
-                    fontSize: `${Math.max(10 - array.length / 20, 6)}px`,
-                    minWidth: "16px",
-                    textAlign: "center",
+                    height: `max(${barHeightPercent}%, 10px)`, // 👈 ensures minimum height
+                    width: `${barWidth}vw`,
+                    backgroundColor: getBarColor(index),
+                    boxShadow: getBarGlow(index),
+                    border: sorted.includes(index)
+                      ? "1px solid #00ff41"
+                      : "none",
                   }}
                 >
-                  {value}
-                </div>
+                  {/* Value label */}
+                  <div
+                    className="absolute -top-5 text-xs font-bold text-green-300 bg-black/70 px-1 rounded border border-green-400/30"
+                    style={{
+                      fontSize,
+                      minWidth: "16px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {value}
+                  </div>
 
-                {(comparing.includes(index) || swapping.includes(index)) && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent animate-pulse" />
-                )}
-              </div>
-            ))}
+                  {(comparing.includes(index) || swapping.includes(index)) && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent animate-pulse" />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
