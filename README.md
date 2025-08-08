@@ -45,7 +45,7 @@ https://sortify-sorting-visualizer.vercel.app
 **Clone the repo**
 
 ```bash
-git clone https://github.com/bhaveshsharmaaa/Sortify-sorting-visualizer.git
+git clone https://github.com/bhaveshsharmaaa/Sortify-sorting-visualizer
 cd Sortify-sorting-visualizer
 npm install
 npm run dev
