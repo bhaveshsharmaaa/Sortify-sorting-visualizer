@@ -171,7 +171,7 @@ export default function Component() {
         oscillator.start(audioContext.currentTime);
         oscillator.stop(audioContext.currentTime + duration / 1000);
       } catch (error) {
-        console.log("Audio not supported");
+        console.log("Audio not supported", error);
       }
     },
     [initAudioContext]
