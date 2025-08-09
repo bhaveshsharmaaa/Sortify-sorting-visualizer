@@ -388,7 +388,7 @@ export default function Component() {
 
           return prev + 1;
         });
-      }, 101 - speed);
+      }, (101 - speed) * 5);
 
       return () => {
         if (intervalRef.current) {
